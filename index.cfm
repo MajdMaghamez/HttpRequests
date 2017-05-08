@@ -37,6 +37,46 @@
         httpRequest.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
         httpRequest.send ( "name=" + name );
       };
+      
+      // this is an example of an ajax get request that returns an xml
+      function sendAjaxRequest2 ()
+      {
+        var httpRequest = XMLHttpRequest();
+        
+        httpRequest.onreadystatechange = function () {
+          if ( this.readyState == 4 && this.status == 200 ) {
+            var data = this.responseXML;
+            var jObject = ParseXML ( data );
+            var Date = "<p>" + jObject[0][1].Value + "/ " + jObject[2][1].Value + "/ " + jObject[1][1].Value + "</p>";
+            document.getElementById("demo2").innerHTML = Date;
+          }
+        };
+        
+        httpRequest.open ( "GET", "server/call.cfc?method=DisplayTodayDate", true );
+        httpRequest.overrideMimeType('application/xml');
+        httpRequest.send();
+      };
+      
+      function ParseXML ( XML )
+      {
+        var jArray = [];
+        var XMLVariables = XML.getElementsByTagName("var");
+        
+        for ( var i = 0; i < XMLVariables.length; i++ ) {
+          var ObjectArray = [];
+          
+          var Name = XMLVariables[i].getAttribute("name");
+          var ObjectName = { Date : Name };
+          
+          var Values = XMLVariables[i].getElementsByTagName("string");
+          var ObjectValue = { Value : Values[0].innerHTML };
+          
+          ObjectArray.push( ObjectName );
+          ObjectArray.push( ObjectValue );
+          jArray.push(ObjectArray);
+        }
+        return jArray;
+      }
     </script>
   </body>
 </html>
