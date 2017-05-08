@@ -14,8 +14,8 @@
     <cfset l.Today = {
       Day   =   "#DatePart('d', NOW())# ",
       Month =   "#DatePart('m', NOW())# ",
-      Year  =   "#DatePart('yyyy', NOW())# ",
-    }
+      Year  =   "#DatePart('yyyy', NOW())# "
+    }>
     
     <cfreturn l.Today>
   </cffunction>
