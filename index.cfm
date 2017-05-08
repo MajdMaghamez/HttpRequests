@@ -41,7 +41,7 @@
       // this is an example of an ajax get request that returns an xml
       function sendAjaxRequest2 ()
       {
-        var httpRequest = XMLHttpRequest();
+        var httpRequest = new XMLHttpRequest();
         
         httpRequest.onreadystatechange = function () {
           if ( this.readyState == 4 && this.status == 200 ) {
